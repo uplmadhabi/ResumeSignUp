@@ -31,11 +31,11 @@ const SignIn = ({navigation}) => {
           <Text style={styles.CV}>Welcome Back Please Enter Your Details.</Text>
         </View>
 
-        <View style={styles.emailIV}>
+        <View style={styles.textInputView}>
           <TextInput style={styles.textInput} placeholder={'Email'} />
         </View>
 
-        <View style={styles.passwordIV}>
+        <View style={styles.textInputView}>
           <TextInput style={styles.textInput} placeholder={'Password'} />
           <Text style={styles.hide}>Hide</Text>
         </View>
@@ -101,26 +101,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-  emailIV: {
+  textInputView : {
     height: '6%',
     width: '85%',
     marginTop: 28,
-    backgroundColor: '#A4A4A4',
+    backgroundColor: '#D3D3D3',
     borderTopStartRadius: 10,
     borderTopEndRadius: 10,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     flexDirection: 'row',
   },
-  passwordIV: {
-    height: '6%',
-    width: '85%',
-    marginTop: 28,
-    backgroundColor: '#A4A4A4',
-    borderTopStartRadius: 10,
-    borderTopEndRadius: 10,
-    borderBottomWidth: 2,
-    flexDirection: 'row',
-  },
+ 
 
   textInput: {
     flex: 1,

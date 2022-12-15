@@ -33,18 +33,18 @@ const SignUp = ({navigation}) => {
         <Text style={styles.CA}>Create Account</Text>
         <Text style={styles.CV}>Create Your CV Builder Account</Text>
       </View>
-      <View style={styles.textInputView}>
+      <View style={styles.nameView}>
         <TextInput style={styles.textInput} placeholder={'Name'} />
       </View>
-      <View style={styles.emailIV}>
+      <View style={styles.textInputView}>
         <TextInput style={styles.textInput} placeholder={'Email'} />
       </View>
 
-      <View style={styles.passwordIV}>
+      <View style={styles.textInputView}>
         <TextInput style={styles.textInput} placeholder={'Password'} />
         <Text style={styles.hide}>Hide</Text>
       </View>
-      <View style={styles.confirmIV}>
+      <View style={styles.textInputView}>
         <TextInput style={styles.textInput} placeholder={'Confirm Password'} />
         <Text style={styles.hide}>Hide</Text>
       </View>
@@ -114,47 +114,26 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 10,
   },
-  textInputView: {
+  nameView: {
     height: '6%',
     width: '85%',
      marginTop: 40,
-    backgroundColor: '#A4A4A4',
+    backgroundColor: '#D3D3D3',
     borderTopStartRadius: 10,
     borderTopEndRadius: 10,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     flexDirection: 'row',
   },
-  emailIV: {
+  textInputView: {
     height: '6%',
     width: '85%',
     marginTop: 28,
-    backgroundColor: '#A4A4A4',
+    backgroundColor: '#D3D3D3',
     borderTopStartRadius: 10,
     borderTopEndRadius: 10,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     flexDirection: 'row',
   },
-  passwordIV: {
-    height: '6%',
-    width: '85%',
-    marginTop: 28,
-    backgroundColor: '#A4A4A4',
-    borderTopStartRadius: 10,
-    borderTopEndRadius: 10,
-    borderBottomWidth: 2,
-    flexDirection: 'row',
-  },
-  confirmIV: {
-    height: '6%',
-    width: '85%',
-    marginTop: 28,
-    backgroundColor: '#A4A4A4',
-    borderTopStartRadius: 10,
-    borderTopEndRadius: 10,
-    borderBottomWidth: 2,
-    flexDirection: 'row',
-  },
-
   textInput: {
      flex: 1,
     padding: 10,
