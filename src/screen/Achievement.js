@@ -10,10 +10,8 @@ import {
   Button,
 } from 'react-native';
 import {ProgressBar} from '@react-native-community/progress-bar-android';
-import CheckBox from '@react-native-community/checkbox';
 
-const EducationInfo = ({navigation}) => {
-  const [isSelected, setSelection] = useState(false);
+const Achievement = ({navigation}) => {
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -23,10 +21,10 @@ const EducationInfo = ({navigation}) => {
           </Text>
           <View style={styles.infoView}>
             <View style={styles.personalView}>
-              <Text style={styles.infoText}>Education Information </Text>
+              <Text style={styles.infoText}>Achievement </Text>
             </View>
             <View style={styles.stepView}>
-              <Text style={styles.stepText}>Step2/6</Text>
+              <Text style={styles.stepText}>Step6/6</Text>
             </View>
           </View>
           <View style={styles.progessbarView}>
@@ -42,7 +40,7 @@ const EducationInfo = ({navigation}) => {
             <ProgressBar
               styleAttr="Horizontal"
               indeterminate={false}
-              progress={0.4}
+              progress={1}
               color="#77D6DE"
             />
           </View>
@@ -51,7 +49,7 @@ const EducationInfo = ({navigation}) => {
         <View style={styles.main}>
           <View style={styles.detailsOuter}>
             <View style={styles.headerMain}>
-              <Text style={styles.sclText}>School 01</Text>
+              <Text style={styles.achievementText}> Achievement</Text>
               <Image
                 source={require('../../assets/DeleteIcon.png')}
                 style={styles.delete}
@@ -61,55 +59,28 @@ const EducationInfo = ({navigation}) => {
               <View style={styles.textInputView}>
                 <TextInput
                   style={styles.textInput}
-                  placeholder={'Course/Degree'}
+                  placeholder={'Name of Organization'}
                 />
               </View>
               <View style={styles.textInputView}>
                 <TextInput
                   style={styles.textInput}
-                  placeholder={'School Name'}
+                  placeholder={'Name of Certificate '}
                 />
               </View>
               <View style={styles.textInputView}>
                 <TextInput
                   style={styles.textInput}
-                  placeholder={'Grade/Score'}
+                  placeholder={'Start Date'}
                 />
               </View>
-              <View style={styles.dateIV}>
-                <View style={styles.startDateView}>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder={'Start Date'}
-                  />
-                </View>
-                <View style={styles.endDateView}>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder={'End Date'}
-                  />
-                </View>
-              </View>
-              <View style={styles.descriptionIV}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder={'Description'}
-                />
-              </View>
-
-              <View style={styles.checkBoxView}>
-                <CheckBox
-                  disabled={false}
-                  value={isSelected}
-                  onValueChange={newValue => setSelection(newValue)}
-                />
-
-                <Text>I currently attend here</Text>
+              <View style={styles.textInputView}>
+                <TextInput style={styles.textInput} placeholder={'End Date'} />
               </View>
             </View>
           </View>
           <View style={styles.addView}>
-            <Text style={styles.addText}> + Add Another School</Text>
+            <Text style={styles.addText}> + Add Another Achievement</Text>
           </View>
 
           <View style={styles.button}>
@@ -117,15 +88,11 @@ const EducationInfo = ({navigation}) => {
               <Button
                 title="Back"
                 color="#32333E"
-                onPress={() => navigation.navigate('PersonalInfo')}
+                onPress={() => navigation.navigate('BioData')}
               />
             </View>
             <View style={styles.btn}>
-              <Button
-                title="Save & Next"
-                color="#FE002D"
-                onPress={() => navigation.navigate('Skill')}
-              />
+              <Button title="Save & Next" color="#FE002D" />
             </View>
           </View>
         </View>
@@ -207,9 +174,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 30,
   },
-  sclText: {
+  achievementText: {
     color: '#FFFFFF',
-   
   },
   delete: {
     height: 16,
@@ -291,4 +257,4 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
 });
-export default EducationInfo;
+export default Achievement;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   SafeAreaView,
@@ -10,13 +10,58 @@ import {
   Image,
   TextInput,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  BackHandler,
+  Alert,
+  shouldBeHandledHere
+
+ 
 } from 'react-native';
+// import { useBackHandler } from "@react-native-community/hooks"
 
 import CheckBox from '@react-native-community/checkbox';
+import {
+  useFocusEffect
+ } from '@react-navigation/native';
 
 const SignIn = ({navigation}) => {
   const [isSelected, setSelection] = useState(false);
+
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        Alert.alert("Hold on!", "Are you sure you want to go back?", [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel"
+          },
+          { text: "YES", onPress: () => BackHandler.exitApp() }
+        ]);
+        return true;
+      };
+
+     
+      BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress
+      );
+
+      return () => {
+       
+        BackHandler.removeEventListener(
+          'hardwareBackPress',
+          onBackPress
+        );
+      };
+    }, []),
+  );
+
+
+
+
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -54,7 +99,11 @@ const SignIn = ({navigation}) => {
         </View>
         <View style={styles.btn}>
           <Button title="Sign In" color="#272727" 
-          onPress={()=> navigation.navigate('PersonalInfo')}/>
+          onPress={()=> {
+           navigation.navigate('PersonalInfo')
+          }}/>
+          
+          
         </View>
         <View style={styles.signGoogle}>
           <View style={styles.googleView}>
@@ -131,7 +180,6 @@ const styles = StyleSheet.create({
     width: '85%',
     marginTop: 5,
     marginBottom: 5,
-
     flexDirection: 'row',
   },
   forgotPasswordView: {

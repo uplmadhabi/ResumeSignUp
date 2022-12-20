@@ -6,7 +6,7 @@ const SplashScreen = ({ navigation }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('SignUp')
+      navigation.navigate('SignIn')
     }, 5000);
   });
 

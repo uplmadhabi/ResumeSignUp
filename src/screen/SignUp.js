@@ -64,9 +64,13 @@ const SignUp = ({navigation}) => {
       </View>
       <View style={styles.btn}>
         <Button title="Sign Up" color="#272727"
-        onPress={()=>{
+        
+          onPress={()=>{
+            // navigation.navigate('PersonalInfo')
+          }}
+
           // navigation.navigate('SignIn')
-        }}
+       
          />
       </View>
       <View style={styles.signGoogle}>

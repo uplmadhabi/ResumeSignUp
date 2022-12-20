@@ -1,19 +1,18 @@
 import React, {useState} from 'react';
 
 import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Button,
-} from 'react-native';
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TextInput,
+    Button,
+  } from 'react-native';
 import {ProgressBar} from '@react-native-community/progress-bar-android';
 import CheckBox from '@react-native-community/checkbox';
 
-const EducationInfo = ({navigation}) => {
-  const [isSelected, setSelection] = useState(false);
+const Skill = ({navigation}) => {
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -23,26 +22,26 @@ const EducationInfo = ({navigation}) => {
           </Text>
           <View style={styles.infoView}>
             <View style={styles.personalView}>
-              <Text style={styles.infoText}>Education Information </Text>
+              <Text style={styles.infoText}>Skills</Text>
             </View>
             <View style={styles.stepView}>
-              <Text style={styles.stepText}>Step2/6</Text>
+              <Text style={styles.stepText}>Step3/6</Text>
             </View>
           </View>
           <View style={styles.progessbarView}>
             {/* <SegmentedProgressBar
-              showSeparatorValue={true}
-              borderRadius={3}
-              values={[0, 10, 30, 80, 100]}
-              colors={['grey', 'green', 'orange', 'red']}
-              labels={['underweight', 'normal', 'overweight', 'obese']}
-              position={80}
-            /> */}
+                showSeparatorValue={true}
+                borderRadius={3}
+                values={[0, 10, 30, 80, 100]}
+                colors={['grey', 'green', 'orange', 'red']}
+                labels={['underweight', 'normal', 'overweight', 'obese']}
+                position={80}
+              /> */}
 
             <ProgressBar
               styleAttr="Horizontal"
               indeterminate={false}
-              progress={0.4}
+              progress={0.6}
               color="#77D6DE"
             />
           </View>
@@ -51,81 +50,48 @@ const EducationInfo = ({navigation}) => {
         <View style={styles.main}>
           <View style={styles.detailsOuter}>
             <View style={styles.headerMain}>
-              <Text style={styles.sclText}>School 01</Text>
+              <Text style={styles.skillText}>Skill 01</Text>
+              
               <Image
                 source={require('../../assets/DeleteIcon.png')}
                 style={styles.delete}
               />
+             
             </View>
             <View style={styles.details}>
               <View style={styles.textInputView}>
                 <TextInput
                   style={styles.textInput}
-                  placeholder={'Course/Degree'}
-                />
-              </View>
-              <View style={styles.textInputView}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder={'School Name'}
-                />
-              </View>
-              <View style={styles.textInputView}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder={'Grade/Score'}
-                />
-              </View>
-              <View style={styles.dateIV}>
-                <View style={styles.startDateView}>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder={'Start Date'}
-                  />
-                </View>
-                <View style={styles.endDateView}>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder={'End Date'}
-                  />
-                </View>
-              </View>
-              <View style={styles.descriptionIV}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder={'Description'}
+                  placeholder={'Skill Name'}
                 />
               </View>
 
-              <View style={styles.checkBoxView}>
-                <CheckBox
-                  disabled={false}
-                  value={isSelected}
-                  onValueChange={newValue => setSelection(newValue)}
+              <View style={styles.progessView}>
+                <ProgressBar
+                  styleAttr="Horizontal"
+                  indeterminate={false}
+                  progress={0.2}
+                  color="#F8C303"
+                  borderTopStartRadius="8"
+                  borderTopEndRadius="8"
                 />
-
-                <Text>I currently attend here</Text>
               </View>
             </View>
           </View>
           <View style={styles.addView}>
             <Text style={styles.addText}> + Add Another School</Text>
           </View>
-
           <View style={styles.button}>
             <View style={styles.back}>
               <Button
                 title="Back"
                 color="#32333E"
-                onPress={() => navigation.navigate('PersonalInfo')}
+                onPress={() => navigation.navigate('EducationInfo')}
               />
             </View>
             <View style={styles.btn}>
-              <Button
-                title="Save & Next"
-                color="#FE002D"
-                onPress={() => navigation.navigate('Skill')}
-              />
+              <Button title="Save & Next" color="#FE002D"
+              onPress={() => navigation.navigate('FirstJob')} />
             </View>
           </View>
         </View>
@@ -136,14 +102,12 @@ const EducationInfo = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex:1,
     height: '100%',
   },
 
   header: {
     height: 'auto',
     backgroundColor: '#2F3044',
-    //   flex: 1,
   },
   fillText: {
     color: '#FFFFFF',
@@ -158,7 +122,7 @@ const styles = StyleSheet.create({
   },
   stepView: {
     justifyContent: 'flex-end',
-    marginLeft: '40%',
+    marginLeft: '60%',
   },
   infoText: {
     color: '#FFFFFF',
@@ -171,17 +135,18 @@ const styles = StyleSheet.create({
     marginVertical: 24,
   },
   main: {
-    height: 'auto',
+    height: 690,
     backgroundColor: '#E3E8EE',
   },
   detailsOuter: {
-    height: 460,
+    height: 400,
     width: '90%',
     marginTop: 20,
     backgroundColor: '#FFFFFF',
     alignSelf: 'center',
   },
   details: {
+    height: 20,
     alignItems: 'center',
     flex: 1,
   },
@@ -207,60 +172,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 30,
   },
-  sclText: {
+  skillText: {
     color: '#FFFFFF',
-   
+
   },
+
   delete: {
+   
     height: 16,
     width: 16,
   },
-  dateIV: {
-    flexDirection: 'row',
-    height: 50,
-    width: '90%',
-    marginTop: 20,
-    flexDirection: 'row',
-    alignSelf: 'center',
-    justifyContent: 'space-between',
+  progessView: {
+    marginVertical: 24,
+    width: 360,
   },
-  startDateView: {
-    width: '60%',
-    backgroundColor: '#D3D3D3',
-    borderTopStartRadius: 10,
-    borderTopEndRadius: 10,
-    borderBottomWidth: 1,
-    justifyContent: 'flex-start',
-  },
-  endDateView: {
-    width: '35%',
-    backgroundColor: '#D3D3D3',
-    borderTopStartRadius: 10,
-    borderTopEndRadius: 10,
-    borderBottomWidth: 1,
-    justifyContent: 'flex-end',
-  },
-  descriptionIV: {
-    height: 100,
-    width: '90%',
-    marginTop: 10,
-    backgroundColor: '#D3D3D3',
-    borderTopStartRadius: 10,
-    borderTopEndRadius: 10,
-    borderBottomWidth: 1,
-    flexDirection: 'row',
-    alignSelf: 'center',
-  },
-  checkBoxView: {
-    alignItems: 'center',
-    height: '6%',
-    width: '85%',
-    marginTop: 5,
-    marginBottom: 5,
-    marginRight: '8%',
-    flexDirection: 'row',
-  },
-
   addView: {
     alignItems: 'center',
     marginTop: 25,
@@ -291,4 +216,4 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
 });
-export default EducationInfo;
+export default Skill;
