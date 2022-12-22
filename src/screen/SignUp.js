@@ -11,15 +11,103 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  ToastAndroid,
+  BackHandler,
+  Alert,
   
 } from 'react-native';
 
 import CheckBox from '@react-native-community/checkbox';
+import { useSelector, useDispatch } from 'react-redux';
+import {useFocusEffect} from '@react-navigation/native';
 
 
 
 const SignUp = ({navigation}) => {
   const [isSelected, setSelection] = useState(false);
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmpassword, setConfirmPassword] = React.useState("");
+
+  const dispatch = useDispatch();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        Alert.alert("Hold on!", "Are you sure you want to go back?", [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel"
+          },
+          { text: "YES", onPress: () => BackHandler.exitApp() }
+        ]);
+        return true;
+      };
+
+     
+      BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress
+      );
+
+      return () => {
+       
+        BackHandler.removeEventListener(
+          'hardwareBackPress',
+          onBackPress
+        );
+      };
+    }, []),
+  );
+
+  const doSignUp = async () => {
+    console.log("email:",email)
+    console.log("password:",password)
+    var signUpBody = {
+      name:name,
+      email: email,
+      password: password,
+    }
+    console.log(signUpBody)
+    try {
+      const response = await fetch('https://dev.api.resumebuilder.underscoretec.com/api/users/login',
+      
+      
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(signUpBody)
+        })
+
+      const json = await response.json();
+      console.log("sadfghj:",json);
+      if (json.error == false) {
+        console.log(JSON.stringify(json));
+        // ToastAndroid.show(json.message, ToastAndroid.SHORT);
+        // dispatch({
+        //   type: "LOGIN_SUCCESS",
+        //   payload: json.result
+        // })
+        navigation.navigate('PersonalInfo')
+      } 
+      else {
+        ToastAndroid.show(json.message, ToastAndroid.SHORT);
+      }
+
+    
+   } catch (error) {
+      console.error(error);
+
+    }
+  }
+
+
+
   return (
     <ScrollView>
     <View style={styles.container}>
@@ -66,10 +154,12 @@ const SignUp = ({navigation}) => {
         <Button title="Sign Up" color="#272727"
         
           onPress={()=>{
-            // navigation.navigate('PersonalInfo')
+            doSignUp()
+
+            
           }}
 
-          // navigation.navigate('SignIn')
+         
        
          />
       </View>
@@ -84,7 +174,10 @@ const SignUp = ({navigation}) => {
         <Text>Sign in with Google</Text>
       </View>
       </View>
-      <TouchableOpacity style ={styles.accountView}  onPress={()=>navigation.navigate('SignIn')}>
+      <TouchableOpacity style ={styles.accountView}
+        onPress={()=>
+        navigation.navigate('SignIn')
+        }>
         <Text> Don't have an account ? </Text>
         <Text style ={ styles.signUp}>Sign In</Text>
       </TouchableOpacity>

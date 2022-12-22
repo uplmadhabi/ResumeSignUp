@@ -13,20 +13,20 @@ import {
   TouchableOpacity,
   BackHandler,
   Alert,
-  shouldBeHandledHere
-
- 
+  shouldBeHandledHere,
+  ToastAndroid,
 } from 'react-native';
-// import { useBackHandler } from "@react-native-community/hooks"
 
 import CheckBox from '@react-native-community/checkbox';
-import {
-  useFocusEffect
- } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import {useFocusEffect} from '@react-navigation/native';
 
 const SignIn = ({navigation}) => {
   const [isSelected, setSelection] = useState(false);
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
+  const dispatch = useDispatch();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -57,6 +57,43 @@ const SignIn = ({navigation}) => {
       };
     }, []),
   );
+
+  const doSignIn = async () => {
+    var loginBody = {
+      email: email,
+      password: password
+    }
+    console.log(loginBody)
+    try {
+      const response = await fetch('https://dev.api.resumebuilder.underscoretec.com/api/users/login',
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(loginBody)
+        })
+
+      const json = await response.json();
+      console.log(json);
+      if (json.error == false) {
+        // console.log(JSON.stringify(json));
+        ToastAndroid.show(json.message, ToastAndroid.SHORT);
+        // dispatch({
+        //   type: "LOGIN_SUCCESS",
+        //   payload: json.result
+        // })
+        navigation.navigate('PersonalInfo')
+      } else {
+        ToastAndroid.show(json.message, ToastAndroid.SHORT);
+      }
+
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
 
 
 
@@ -100,7 +137,8 @@ const SignIn = ({navigation}) => {
         <View style={styles.btn}>
           <Button title="Sign In" color="#272727" 
           onPress={()=> {
-           navigation.navigate('PersonalInfo')
+            doSignIn() 
+          //  navigation.navigate('PersonalInfo')
           }}/>
           
           
@@ -116,7 +154,10 @@ const SignIn = ({navigation}) => {
             <Text>Sign in with Google</Text>
           </View>
         </View>
-        <TouchableOpacity style ={styles.accountView}  onPress={()=>navigation.navigate('SignUp')}>
+        <TouchableOpacity style ={styles.accountView} 
+         onPress={()=>
+         navigation.navigate('SignUp')
+         }>
                       <Text> Don't have an account ? </Text>
           <Text style={styles.signUp}>Sign up</Text>
         </TouchableOpacity>
