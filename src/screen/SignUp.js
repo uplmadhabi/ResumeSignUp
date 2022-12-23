@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 
 import {
   SafeAreaView,
@@ -22,6 +22,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import {useFocusEffect} from '@react-navigation/native';
 
 
+import {AsyncStorage} from 'react-native';
+// import {AsyncStorage} from  '@react-native-async-storage/async-storage';
+var STORAGE_KEY = 'key_input' ;
 
 const SignUp = ({navigation}) => {
   const [isSelected, setSelection] = useState(false);
@@ -62,49 +65,83 @@ const SignUp = ({navigation}) => {
     }, []),
   );
 
-  const doSignUp = async () => {
-    console.log("email:",email)
-    console.log("password:",password)
-    var signUpBody = {
-      name:name,
-      email: email,
-      password: password,
-    }
-    console.log(signUpBody)
-    try {
-      const response = await fetch('https://dev.api.resumebuilder.underscoretec.com/api/users/login',
+  // const doSignUp = async () => {
+  //   console.log("email:",email)
+  //   console.log("password:",password)
+  //   var signUpBody = {
+  //     name:name,
+  //     email: email,
+  //     password: password,
+  //   }
+  //   console.log(signUpBody)
+  //   try {
+  //     const response = await fetch('https://dev.api.resumebuilder.underscoretec.com/api/users/login',
       
       
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(signUpBody)
-        })
+  //       {
+  //         method: 'POST',
+  //         headers: {
+  //           Accept: 'application/json',
+  //           'Content-Type': 'application/json'
+  //         },
+  //         body: JSON.stringify(signUpBody)
+  //       })
 
-      const json = await response.json();
-      console.log("sadfghj:",json);
-      if (json.error == false) {
-        console.log(JSON.stringify(json));
-        // ToastAndroid.show(json.message, ToastAndroid.SHORT);
-        // dispatch({
-        //   type: "LOGIN_SUCCESS",
-        //   payload: json.result
-        // })
-        navigation.navigate('PersonalInfo')
-      } 
-      else {
-        ToastAndroid.show(json.message, ToastAndroid.SHORT);
-      }
+  //     const json = await response.json();
+  //     console.log("sadfghj:",json);
+  //     if (json.error == false) {
+  //       console.log(JSON.stringify(json));
+  //       ToastAndroid.show(json.message, ToastAndroid.SHORT);
+
+
+
+  //       // dispatch({
+  //       //   type: "LOGIN_SUCCESS",
+  //       //   payload: json.result
+  //       // })
+  //       navigation.navigate('PersonalInfo')
+  //     } 
+  //     else {
+  //       ToastAndroid.show(json.message, ToastAndroid.SHORT);
+  //     }
 
     
-   } catch (error) {
-      console.error(error);
+  //  } catch (error) {
+  //     console.error(error);
 
+  //   }
+
+
+
+
+
+
+
+  // }
+
+
+  const doSignUp = async () => {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY,name)
+      await AsyncStorage.setItem(STORAGE_KEY,email)
+      await AsyncStorage.setItem(STORAGE_KEY,password)
+
+      if (!name.trim() && !email.trim() && !password.trim()) {
+        alert('Please fill!!');
+      }
+      else{
+      alert('successfully saved!!')
+      navigation.navigate('PersonalInfo')
+
+      }
+
+    } catch (e) {
+      console.log("error:", e)
+      alert('Unable to Save!!')
     }
   }
+
+ 
 
 
 
@@ -122,14 +159,24 @@ const SignUp = ({navigation}) => {
         <Text style={styles.CV}>Create Your CV Builder Account</Text>
       </View>
       <View style={styles.nameView}>
-        <TextInput style={styles.textInput} placeholder={'Name'} />
+        <TextInput style={styles.textInput}
+         placeholder={'Name'}
+         value={name}
+         onChangeText={(actualdata)=>setName(actualdata)} />
       </View>
       <View style={styles.textInputView}>
-        <TextInput style={styles.textInput} placeholder={'Email'} />
+        <TextInput style={styles.textInput} 
+        placeholder={'Email'} 
+        // value={password}
+        onChangeText={(actualEmail)=>setEmail(actualEmail)}
+        />
       </View>
 
       <View style={styles.textInputView}>
-        <TextInput style={styles.textInput} placeholder={'Password'} />
+        <TextInput style={styles.textInput}
+         placeholder={'Password'} 
+         onChangeText={(actualPassword)=>setPassword(actualPassword)}
+         />
         <Text style={styles.hide}>Hide</Text>
       </View>
       <View style={styles.textInputView}>

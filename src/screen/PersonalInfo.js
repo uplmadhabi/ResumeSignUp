@@ -11,11 +11,18 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  BackHandler,
+  Alert,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import {ProgressBar} from '@react-native-community/progress-bar-android';
 import SegmentedProgressBar from 'react-native-segmented-progress-bar';
 
 const PersonalInfo = ({navigation}) => {
+
+
+ 
+
   return (
     <ScrollView>
       <View style={styles.container}>

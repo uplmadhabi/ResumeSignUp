@@ -95,6 +95,25 @@ const SignIn = ({navigation}) => {
     }
   }
 
+  // const doSignIn = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem(STORAGE_KEY);
+  
+  //     if (value !== null) {
+  //       setEmail(value);
+  //       setPassword(value);
+  //       alert(" Fetch data:"+value)
+  //     }
+  //   } catch (e) {
+  //     alert('Failed to fetch the input ');
+  //   }
+  // };
+
+
+  // useEffect(()=>{
+  //   doSignUp() 
+  // },[]
+  // )
 
 
 
